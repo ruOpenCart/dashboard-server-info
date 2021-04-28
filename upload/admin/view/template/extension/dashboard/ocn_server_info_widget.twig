@@ -1,0 +1,177 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-server" aria-hidden="true"></i> {{ text_name }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-lg-3">
+        <dl class="dl-horizontal {% if not php_version_recommend %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_php }}:</dt>
+          <dd><a href="{{ phpinfo_url }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> {{ php_version }}</a> {% if not php_version_recommend %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-times-circle" aria-hidden="true"></i>{% endif %}</dd>
+        </dl>
+        <dl class="dl-horizontal {% if not php_register_globals %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_register_globals }}:</dt>
+          <dd>
+            {% if php_register_globals %}{{ text_on }}{% else %}{{ text_off }}{% endif %}
+            {% if not php_register_globals %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-times-circle" aria-hidden="true"></i>{% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if not php_magic_quotes_gpc %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_magic_quotes_gpc }}:</dt>
+          <dd>
+            {% if php_magic_quotes_gpc %}{{ text_on }}{% else %}{{ text_off }}{% endif %}
+            {% if not php_magic_quotes_gpc %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-times-circle" aria-hidden="true"></i>{% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if not php_session_auto_start %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_session_auto_start }}:</dt>
+          <dd>
+            {% if php_session_auto_start %}{{ text_on }}{% else %}{{ text_off }}{% endif %}
+            {% if not php_session_auto_start %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-times-circle" aria-hidden="true"></i>{% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_file_uploads %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_file_uploads }}:</dt>
+          <dd>
+            {% if php_file_uploads %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if not php_display_errors %}text-success{% else %}text-warning{% endif %}">
+          <dt>{{ dl_display_errors }}:</dt>
+          <dd>
+            {% if php_display_errors %}{{ text_on }}{% else %}{{ text_off }}{% endif %}
+            {% if not php_display_errors %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-question-circle" aria-hidden="true"></i>{% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if not php_xdebug %}text-success{% else %}text-warning{% endif %}">
+          <dt>{{ dl_xdebug }}:</dt>
+          <dd>
+            {% if php_xdebug %}{{ text_on }}{% else %}{{ text_off }}{% endif %}
+            {% if not php_xdebug %}<i class="fa fa-check-circle" aria-hidden="true"></i>{% else %}<i class="fa fa-question-circle" aria-hidden="true"></i>{% endif %}
+          </dd>
+        </dl>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-lg-3">
+        <dl class="dl-horizontal {% if php_gd %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_gd }}:</dt>
+          <dd>
+            {% if php_gd %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_curl %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_curl }}:</dt>
+          <dd>
+            {% if php_curl %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_openssl %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_openssl }}:</dt>
+          <dd>
+            {% if php_openssl %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_zlib %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_zlib }}:</dt>
+          <dd>
+            {% if php_zlib %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_zip %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_zip }}:</dt>
+          <dd>
+            {% if php_zip %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal {% if php_imagick %}text-success{% else %}text-danger{% endif %}">
+          <dt>{{ dl_imagick }}:</dt>
+          <dd>
+            {% if php_imagick %}
+              {{ text_on }} <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {% else %}
+              {{ text_off }} <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+          </dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_ioncube }}:</dt>
+          <dd>{{ php_ioncube }}</dd>
+        </dl>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-lg-3">
+        <dl class="dl-horizontal">
+          <dt>{{ dl_memory_limit }}:</dt>
+          <dd>{{ php_memory_limit }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_post_max_size }}:</dt>
+          <dd>{{ php_post_max_size }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_upload_max_filesize }}:</dt>
+          <dd>{{ php_upload_max_filesize }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_max_execution_time }}:</dt>
+          <dd>{{ php_max_execution_time }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_max_input_vars }}:</dt>
+          <dd>{{ php_max_input_vars }}</dd>
+        </dl>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-lg-3">
+        <dl class="dl-horizontal">
+          <dt>{{ dl_db_version }}:</dt>
+          <dd>{{ db_version }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_db_max_allowed_packet }}:</dt>
+          <dd>{{ db_max_allowed_packet }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_db_connect_timeout }}:</dt>
+          <dd>{{ db_connect_timeout }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_db_max_connections }}:</dt>
+          <dd>{{ db_max_connections }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_server_software }}:</dt>
+          <dd>{{ server_software }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>{{ dl_server_os }}:</dt>
+          <dd>{{ server_os }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
