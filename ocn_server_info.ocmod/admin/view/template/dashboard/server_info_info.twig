@@ -1,0 +1,225 @@
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#serverInfoCollapse"
+              aria-expanded="true"
+              aria-controls="serverInfoCollapse">
+        <i class="fa fa-server"></i> <span class="ms-2">{{ text_name }}</span>
+      </button>
+    </h2>
+    <div id="serverInfoCollapse" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>{{ dl_php }}:</th>
+                <td class="{% if not php_version_recommend %}text-success{% else %}text-danger{% endif %}">
+                  {% if not php_version_recommend %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                  {% endif %}
+                  <a href="{{ phpinfo_url }}" target="_blank">
+                    {{ php_version }}
+                    <i class="fa fa-info-circle ms-1" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_register_globals }}:</th>
+                <td class="{% if not php_register_globals %}text-success{% else %}text-danger{% endif %}">
+                  {% if not php_register_globals %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                  {% endif %}
+                  {% if php_register_globals %}
+                    {{ text_on }}
+                  {% else %}
+                    {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_magic_quotes_gpc }}:</th>
+                <td class="{% if not php_magic_quotes_gpc %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_magic_quotes_gpc %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_session_auto_start }}:</th>
+                <td class="{% if not php_session_auto_start %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_session_auto_start %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_file_uploads }}:</th>
+                <td class="{% if php_file_uploads %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_file_uploads %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_display_errors }}:</th>
+                <td class="{% if not php_display_errors %}text-success{% else %}text-warning{% endif %}">
+                  {% if php_display_errors %}
+                    <i class="fa fa-question-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_xdebug }}:</th>
+                <td class="{% if not php_xdebug %}text-success{% else %}text-warning{% endif %}">
+                  {% if php_xdebug %}
+                    <i class="fa fa-question-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>{{ dl_gd }}:</th>
+                <td class="{% if php_gd %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_gd %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_curl }}:</th>
+                <td class="{% if php_curl %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_curl %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_openssl }}:</th>
+                <td class="{% if php_openssl %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_openssl %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_zlib }}:</th>
+                <td class="{% if php_zlib %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_zlib %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_zip }}:</th>
+                <td class="{% if php_zip %}text-success{% else %}text-danger{% endif %}">
+                  {% if php_zip %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ dl_imagick }}:</th>
+                <td class="{% if php_imagick %}text-success{% else %}text-warning{% endif %}">
+                  {% if php_imagick %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> {{ text_on }}
+                  {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> {{ text_off }}
+                  {% endif %}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>{{ dl_memory_limit }}:</th>
+                <td>{{ php_memory_limit }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_post_max_size }}:</th>
+                <td>{{ php_post_max_size }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_upload_max_filesize }}:</th>
+                <td>{{ php_upload_max_filesize }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_max_execution_time }}:</th>
+                <td>{{ php_max_execution_time }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_max_input_vars }}:</th>
+                <td>{{ php_max_input_vars }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_server_software }}:</th>
+                <td>{{ server_software }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>{{ dl_db_version }}:</th>
+                <td>{{ db_version }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_db_max_allowed_packet }}:</th>
+                <td>{{ db_max_allowed_packet }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_db_connect_timeout }}:</th>
+                <td>{{ db_connect_timeout }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_db_max_connections }}:</th>
+                <td>{{ db_max_connections }}</td>
+              </tr>
+              <tr>
+                <th>{{ dl_server_os }}:</th>
+                <td>{{ server_os }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
