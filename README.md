@@ -3,7 +3,9 @@
 Виджет для Информационной панели с информацией о сервере, версии PHP и БД.
 
 ### Совместимость
-- OpenCart 3.0.3.x
+
+-   OpenCart 4.0.2.x
 
 ## Ссылки
-- [Файл на форуме](https://forum.opencart.name/resources/113/)
+
+-   [Файл на форуме](https://forum.opencart.name/resources/113/)
