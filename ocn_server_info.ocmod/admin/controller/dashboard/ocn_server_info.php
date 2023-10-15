@@ -1,10 +1,9 @@
 <?php
 
 namespace Opencart\Admin\Controller\Extension\OcnServerInfo\Dashboard;
-class ServerInfo extends \Opencart\System\Engine\Controller
+
+class OcnServerInfo extends \Opencart\System\Engine\Controller
 {
-	private $version = '4.0.0.0';
-	private $author = 'Hkr32';
 	private $user_token;
 	
 	public function __construct($registry)
@@ -18,11 +17,11 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 	{
 		$this->load->model('setting/setting');
 		$data = [
-			'dashboard_server_info_status' => 0,
-			'dashboard_server_info_width' => 12,
-			'dashboard_server_info_sort_order' => 0
+			'dashboard_ocn_server_info_status' => 0,
+			'dashboard_ocn_server_info_width' => 12,
+			'dashboard_ocn_server_info_sort_order' => 0,
 		];
-		$this->model_setting_setting->editSetting('dashboard_server_info', $data);
+		$this->model_setting_setting->editSetting('dashboard_ocn_server_info', $data);
 	}
 	
 	public function uninstall(): void
@@ -31,27 +30,27 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 	
 	public function index(): void
 	{
-		$this->load->language('extension/ocn_server_info/dashboard/server_info');
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
 		
 		$data['breadcrumbs'] = [
 			[
 				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/dashboard', 'user_token=' . $this->user_token)
+				'href' => $this->url->link('common/dashboard', 'user_token=' . $this->user_token),
 			],
 			[
 				'text' => $this->language->get('text_extension'),
-				'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->user_token . '&type=dashboard')
+				'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->user_token . '&type=dashboard'),
 			],
 			[
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('extension/ocn_server_info/dashboard/server_info', 'user_token=' . $this->user_token)
+				'href' => $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info', 'user_token=' . $this->user_token),
 			],
 		];
 		
 		// Buttons
-		$data['save'] = $this->url->link('extension/ocn_server_info/dashboard/server_info.save', 'user_token=' . $this->user_token);
+		$data['save'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.save', 'user_token=' . $this->user_token);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->user_token . '&type=dashboard');
 		
 		// Info
@@ -60,32 +59,32 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 		$data['columns'] = [12];
 		
 		// Config
-		$data['dashboard_server_info_status'] = $this->config->get('dashboard_server_info_status');
-		$data['dashboard_server_info_width'] = $this->config->get('dashboard_server_info_width');
-		$data['dashboard_server_info_sort_order'] = $this->config->get('dashboard_server_info_sort_order');
+		$data['dashboard_ocn_server_info_status'] = $this->config->get('dashboard_ocn_server_info_status');
+		$data['dashboard_ocn_server_info_width'] = $this->config->get('dashboard_ocn_server_info_width');
+		$data['dashboard_ocn_server_info_sort_order'] = $this->config->get('dashboard_ocn_server_info_sort_order');
 		
 		// Template
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 		
-		$this->response->setOutput($this->load->view('extension/ocn_server_info/dashboard/server_info_form', $data));
+		$this->response->setOutput($this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_form', $data));
 	}
 	
 	public function save(): void
 	{
-		$this->load->language('extension/ocn_server_info/dashboard/server_info');
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
 		$json = [];
 		
-		if (!$this->user->hasPermission('modify', 'extension/ocn_server_info/dashboard/server_info')) {
+		if (!$this->user->hasPermission('modify', 'extension/ocn_server_info/dashboard/ocn_server_info')) {
 			$json['error'] = $this->language->get('error_permission');
 		}
 		
 		if (!$json) {
 			$this->load->model('setting/setting');
 			
-			$this->model_setting_setting->editSetting('dashboard_server_info', $this->request->post);
+			$this->model_setting_setting->editSetting('dashboard_ocn_server_info', $this->request->post);
 			
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -100,12 +99,12 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 	public function dashboard(): string
 	{
 		// Language
-		$this->load->language('extension/ocn_server_info/dashboard/server_info');
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
 		$data['user_token'] = $this->user_token;
 		
 		// PHP
-		$data['phpinfo_url'] = $this->url->link('extension/ocn_server_info/dashboard/server_info.phpInfo', 'user_token=' . $this->user_token);
+		$data['phpinfo_url'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.info', 'user_token=' . $this->user_token);
 		$data['php_version'] = phpversion();
 		$data['php_version_recommend'] = version_compare(phpversion(), '8.0', '<');
 		$data['php_register_globals'] = ini_get('register_globals');
@@ -125,13 +124,11 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 		$data['php_zlib'] = extension_loaded('zlib');
 		$data['php_zip'] = extension_loaded('zip');
 		$data['php_imagick'] = extension_loaded('imagick');
-		if (function_exists('ioncube_loader_version')) {
-			$data['php_ioncube'] = ioncube_loader_version();
-		}
+		$data['php_ioncube'] = function_exists('ioncube_loader_version') ? ioncube_loader_version() : null;
 		
 		// DB
-		$this->load->model('extension/ocn_server_info/dashboard/server_info');
-		$dbInfo = $this->model_extension_ocn_server_info_dashboard_server_info->getInfo();
+		$this->load->model('extension/ocn_server_info/dashboard/ocn_server_info');
+		$dbInfo = $this->model_extension_ocn_server_info_dashboard_ocn_server_info->getInfo();
 		$data['db_version'] = $dbInfo['version'];
 		$data['db_max_allowed_packet'] = $dbInfo['max_allowed_packet'];
 		$data['db_connect_timeout'] = $dbInfo['connect_timeout'];
@@ -141,10 +138,15 @@ class ServerInfo extends \Opencart\System\Engine\Controller
 		$data['server_software'] = $_SERVER['SERVER_SOFTWARE'];
 		$data['server_os'] = php_uname();
 		
-		return $this->load->view('extension/ocn_server_info/dashboard/server_info_info', $data);
+		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_info', $data);
 	}
 	
-	public function phpInfo()
+	public function size()
+	{
+		return shell_exec('df -h');
+	}
+	
+	public function info()
 	{
 		return phpinfo();
 	}
