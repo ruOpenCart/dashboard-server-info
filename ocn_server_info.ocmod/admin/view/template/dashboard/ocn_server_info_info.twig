@@ -23,7 +23,7 @@
                   {% endif %}
                   <a href="{{ phpinfo_url }}" target="_blank">
                     {{ php_version }}
-                    <i class="fa fa-info-circle ms-1" aria-hidden="true"></i>
+                    <i class="fa-solid fa-up-right-from-square ms-1"></i>
                   </a>
                 </td>
               </tr>
@@ -252,7 +252,22 @@
             </table>
           </div>
         </div>
+        <div class="row">
+          <div class="col-auto ms-auto">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalDf">
+                <i class="fa-regular fa-hard-drive"></i>
+              </button>
+              <a href="{{ url_edit }}" class="btn btn-primary">
+                <i class="fa-solid fa-pencil"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+{{ modal_df }}
+

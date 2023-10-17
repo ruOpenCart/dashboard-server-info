@@ -1,0 +1,42 @@
+<div class="modal fade" id="modalDf" tabindex="-1" aria-labelledby="modalDfLabel" aria-hidden="true"
+     data-url="{{ url_size }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalDfLabel">{{ modal_title }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ button_close }}"></button>
+      </div>
+      <div class="modal-body" id="modalDfBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ button_close }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="modalDfLoading">
+  <div class="d-flex align-items-center align-content-center justify-content-center">
+    <div class="spinner-border text-info" aria-hidden="true"></div>
+    <strong class="ms-2" role="status">{{ text_loading }}</strong>
+  </div>
+</template>
+
+<script>
+    window.onload = function () {
+        const modalDf = document.getElementById('modalDf');
+        const utlSize = modalDf.getAttribute('data-url');
+        const modalDfBody = document.getElementById('modalDfBody');
+        const templateModalDfLoading = document.getElementById('modalDfLoading');
+
+        modalDf.addEventListener('hide.bs.modal', (event) => {
+            modalDfBody.innerHTML = '';
+        });
+
+        modalDf.addEventListener('shown.bs.modal', (event) => {
+            modalDfBody.appendChild(templateModalDfLoading.content.cloneNode(true));
+            fetch(utlSize)
+                .then((response) => response.text())
+                .then((data) => modalDfBody.innerHTML = data)
+        });
+    };
+</script>

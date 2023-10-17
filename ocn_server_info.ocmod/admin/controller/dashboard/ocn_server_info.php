@@ -54,8 +54,8 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->user_token . '&type=dashboard');
 		
 		// Info
-		$data['data_author'] = $this->author;
-		$data['data_version'] = $this->version;
+//		$data['data_author'] = $this->author;
+//		$data['data_version'] = $this->version;
 		$data['columns'] = [12];
 		
 		// Config
@@ -103,6 +103,9 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 		
 		$data['user_token'] = $this->user_token;
 		
+		// Urls
+		$data['url_edit'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info', 'user_token=' . $this->user_token);
+		
 		// PHP
 		$data['phpinfo_url'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.info', 'user_token=' . $this->user_token);
 		$data['php_version'] = phpversion();
@@ -138,12 +141,35 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 		$data['server_software'] = $_SERVER['SERVER_SOFTWARE'];
 		$data['server_os'] = php_uname();
 		
+		$data['modal_df'] = $this->modalDf();
+		
 		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_info', $data);
+	}
+	
+	public function modalDf()
+	{
+		// Language
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info_modal_df');
+		
+		// Token
+		$data['user_token'] = $this->user_token;
+		
+		// Urls
+		$data['url_size'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.size', 'user_token=' . $this->user_token);
+		
+		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_modal_df', $data);
 	}
 	
 	public function size()
 	{
-		return shell_exec('df -h');
+		$this->response->setOutput(
+			$this->load->view(
+				'extension/ocn_server_info/dashboard/ocn_server_info_df',
+				[
+					'df' => shell_exec('df -h'),
+				]
+			)
+		);
 	}
 	
 	public function info()
