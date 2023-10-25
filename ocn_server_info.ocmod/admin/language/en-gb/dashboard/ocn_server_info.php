@@ -9,14 +9,21 @@ $_['button_apply'] = 'Apply';
 $_['text_name'] = 'Server Info';
 $_['text_extension'] = 'Extensions';
 $_['text_success'] = 'Success: You have modified dashboard server info!';
-$_['text_edit'] = 'Edit server info';
+$_['text_edit'] = 'Edit';
 $_['text_on'] = 'Enable';
 $_['text_off'] = 'Disable';
+$_['text_space'] = 'Free %s of %s';
 
 // Entry
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_width'] = 'Width';
+$_['entry_is_expanded'] = 'Always expanded';
+$_['entry_is_space_progress'] = 'Progress bar';
+
+// Placeholder
+$_['placeholder_is_expanded'] = 'Information is expanded or collapsed when loading the page';
+$_['placeholder_is_space_progress'] = 'Show free disk space as a progress bar';
 
 // DL php
 $_['dl_php'] = 'PHP version';
@@ -41,6 +48,7 @@ $_['dl_xdebug'] = 'xdebug';
 
 // DL db
 $_['dl_db_version'] = 'DB version';
+$_['dl_db_version_comment'] = 'Comment';
 $_['dl_db_max_allowed_packet'] = 'db_max_allowed_packet';
 $_['dl_db_connect_timeout'] = 'db_connect_timeout';
 $_['dl_db_max_connections'] = 'db_max_connections';

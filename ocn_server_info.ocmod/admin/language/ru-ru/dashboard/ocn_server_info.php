@@ -5,19 +5,25 @@ $_['heading_title'] = '[OCN] Информация о сервере';
 // Button
 $_['button_apply'] = 'Применить';
 
-
 // Text
 $_['text_name'] = 'Информация о сервере';
 $_['text_extension'] = 'Расширения';
 $_['text_success'] = 'Успешно: Вы изменили виджет информация о сервере!';
-$_['text_edit'] = 'Редактировать';
+$_['text_edit'] = 'Редактирование';
 $_['text_on'] = 'Вкл';
 $_['text_off'] = 'Выкл';
+$_['text_space'] = 'Свободно %s из %s';
 
 // Entry
 $_['entry_status'] = 'Статус';
 $_['entry_sort_order'] = 'Порядок сортировки';
 $_['entry_width'] = 'Ширина';
+$_['entry_is_expanded'] = 'Всегда раскрыт';
+$_['entry_is_space_progress'] = 'Прогресс бар';
+
+// Placeholder
+$_['placeholder_is_expanded'] = 'Развернута информация при загрузке страницы или свернута';
+$_['placeholder_is_space_progress'] = 'Показывать свободное пространство на диске в виде прогресс бара';
 
 // DL php
 $_['dl_php'] = 'Версия PHP';
@@ -42,6 +48,7 @@ $_['dl_xdebug'] = 'xdebug';
 
 // DL db
 $_['dl_db_version'] = 'Версия БД';
+$_['dl_db_version_comment'] = 'Комментарий';
 $_['dl_db_max_allowed_packet'] = 'db_max_allowed_packet';
 $_['dl_db_connect_timeout'] = 'db_connect_timeout';
 $_['dl_db_max_connections'] = 'db_max_connections';

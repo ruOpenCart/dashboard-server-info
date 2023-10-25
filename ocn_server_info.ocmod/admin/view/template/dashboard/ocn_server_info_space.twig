@@ -1,0 +1,40 @@
+<span class="d-flex flex-row flex-nowrap flex-fill ms-md-4 me-2">
+  <i class="fa-solid fa-hard-drive me-1"></i>
+  {% if is_progress %}
+    <span
+        class="progress-stacked flex-grow-1"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title="{{ disk_space }}"
+    >
+      <span
+          class="progress"
+          role="progressbar"
+          aria-label="Free space"
+          aria-valuenow="{{ disk_free_space_percent }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: {{ disk_free_space_percent }}%"
+      >
+        <span class="progress-bar {{ disk_free_space_color }}">
+          {{ disk_free_space_percent }}%
+        </span>
+      </span>
+      <span
+          class="progress"
+          role="progressbar"
+          aria-label="Use space"
+          aria-valuenow="{{ disk_total_space_percent }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: {{ disk_total_space_percent }}%"
+      >
+        <span class="progress-bar bg-info">
+          {{ disk_total_space_percent }}%
+        </span>
+      </span>
+    </span>
+  {% else %}
+    <span class="me-md-4">{{ disk_space }}</span>
+  {% endif %}
+</span>
