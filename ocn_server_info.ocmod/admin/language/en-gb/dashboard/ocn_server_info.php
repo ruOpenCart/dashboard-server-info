@@ -1,9 +1,18 @@
 <?php
 // Heading
 $_['heading_title'] = '[OCN] Server Info';
+$_['modal_filesystem_title'] = 'File system information';
 
 // Button
 $_['button_apply'] = 'Apply';
+$_['button_close'] = 'Close';
+$_['button_refresh'] = 'Refresh';
+
+// Fieldset
+$_['legend_general'] = 'General';
+$_['legend_free_space'] = 'Free space';
+$_['legend_filesystem'] = 'File system';
+$_['legend_size_opencart'] = 'OpenCart size';
 
 // Text
 $_['text_name'] = 'Server Info';
@@ -12,18 +21,37 @@ $_['text_success'] = 'Success: You have modified dashboard server info!';
 $_['text_edit'] = 'Edit';
 $_['text_on'] = 'Enable';
 $_['text_off'] = 'Disable';
-$_['text_space'] = 'Free %s of %s';
+$_['text_free_space'] = 'Free %s of %s';
+$_['text_size_opencart'] = 'OpenCart';
+$_['text_size_opencart_storage'] = 'Storage';
+$_['text_size_opencart_logs'] = 'Logs';
+$_['text_size_opencart_image'] = 'Images (cache)';
+$_['text_loading'] = 'Loading...';
 
 // Entry
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_width'] = 'Width';
 $_['entry_is_expanded'] = 'Always expanded';
-$_['entry_is_space_progress'] = 'Progress bar';
+$_['entry_free_space_is_progressbar'] = 'Progress bar';
+$_['entry_filesystem_is_inodes'] = 'Inodes';
+$_['entry_filesystem_is_total'] = 'Total';
+$_['entry_size_opencart_is_storage'] = 'Storage';
+$_['entry_size_opencart_is_logs'] = 'Logs';
+$_['entry_size_opencart_is_images'] = 'Images (cache)';
 
 // Placeholder
+$_['placeholder_settings'] = 'Settings';
 $_['placeholder_is_expanded'] = 'Information is expanded or collapsed when loading the page';
-$_['placeholder_is_space_progress'] = 'Show free disk space as a progress bar';
+$_['placeholder_free_space_status'] = 'Show free disk space in title';
+$_['placeholder_free_space_is_progressbar'] = 'Show free disk space as a progress bar';
+$_['placeholder_filesystem_is_inodes'] = 'Count and show inodes';
+$_['placeholder_filesystem_is_total'] = 'Display information in total for all disks';
+$_['placeholder_file_system'] = 'File system';
+$_['placeholder_size_opencart_status'] = 'Show opencart folder size';
+$_['placeholder_size_opencart_is_storage'] = 'Show storage folder size';
+$_['placeholder_size_opencart_is_logs'] = 'Show log folder size';
+$_['placeholder_size_opencart_is_images'] = 'Show cached image folder size';
 
 // DL php
 $_['dl_php'] = 'PHP version';

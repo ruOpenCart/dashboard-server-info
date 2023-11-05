@@ -2,7 +2,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button
-          class="accordion-button{% if not dashboard_ocn_server_info_is_expanded %} collapsed{% endif %}"
+          class="accordion-button {% if not dashboard_ocn_server_info_is_expanded %}collapsed{% endif %}"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#serverInfoCollapse"
@@ -14,13 +14,18 @@
             <i class="fa fa-server me-1"></i>
             {{ text_name }}
           </span>
+
           {{ versions }}
-          {{ space }}
+
+          {% if free_space_status %}
+            {{ size_progressbar }}
+          {% endif %}
         </span>
       </button>
     </h2>
-    <div id="serverInfoCollapse"
-         class="accordion-collapse collapse{% if dashboard_ocn_server_info_is_expanded %} show{% endif %}"
+    <div
+        id="serverInfoCollapse"
+        class="accordion-collapse collapse {% if dashboard_ocn_server_info_is_expanded %}show{% endif %}"
     >
       <div class="accordion-body">
         <div class="row">
@@ -271,13 +276,33 @@
           </div>
         </div>
         <div class="row">
+          <div class="col pt-2">
+            {% if size_opencart_status %}
+              {{ size_opencart }}
+            {% endif %}
+          </div>
           <div class="col-auto ms-auto">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalDf">
-                <i class="fa-regular fa-hard-drive"></i>
+              <button
+                  type="button"
+                  class="btn btn-outline-info"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalFileSystem"
+              >
+                <i
+                    class="fa-regular fa-hard-drive"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_file_system }}"
+                ></i>
               </button>
               <a href="{{ url_edit }}" class="btn btn-primary">
-                <i class="fa-solid fa-pencil"></i>
+                <i
+                    class="fa-solid fa-pencil"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_settings }}"
+                ></i>
               </a>
             </div>
           </div>
@@ -287,5 +312,43 @@
   </div>
 </div>
 
-{{ modal_df }}
+{{ modal_system }}
 
+{{ template_loading }}
+
+<script>
+    function loadHtmlTemplate(containerId, urlAttribute = 'data-url', isLoading = false) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            const url = container.getAttribute(urlAttribute);
+            if (isLoading) {
+                container.innerHTML = '';
+                templateLoading = document.getElementById('templateLoading').content.cloneNode(true);
+                container.appendChild(templateLoading);
+            }
+            fetch(url)
+                .then((response) => response.text())
+                .then((data) => container.outerHTML = data);
+        }
+    }
+
+    window.onload = function () {
+        setTimeout(loadHtmlTemplate('sizeOpencart'), 1000);
+        setTimeout(loadHtmlTemplate('sizeProgressbar'), 1000);
+
+        const modalFileSystem = document.getElementById('modalFileSystem');
+        const modalFileSystemRefreshButton = document.getElementById('modalFileSystemRefresh');
+
+        modalFileSystem.addEventListener('hide.bs.modal', (event) => {
+            document.getElementById('modalFileSystemBody').innerHTML = '';
+        });
+
+        modalFileSystem.addEventListener('shown.bs.modal', (event) => {
+            loadHtmlTemplate('modalFileSystemBody', 'data-url', true);
+        });
+
+        modalFileSystemRefreshButton.addEventListener('click', (event) => {
+            loadHtmlTemplate('modalFileSystemBody', 'data-url', true);
+        });
+    };
+</script>

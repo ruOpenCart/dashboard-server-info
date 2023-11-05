@@ -34,90 +34,272 @@
       </div>
       <div class="card-body">
         <form id="form-dashboard" action="{{ save }}" method="post" data-oc-toggle="ajax">
-          <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">{{ entry_status }}</label>
-            <div class="col-sm-10">
-              <div class="form-check form-switch form-switch-lg">
-                <input type="hidden" name="dashboard_ocn_server_info_status" value="0"/>
-                <input type="checkbox"
-                       name="dashboard_ocn_server_info_status"
-                       value="1"
-                       id="input-status"
-                       class="form-check-input"
-                       {% if dashboard_ocn_server_info_status %}checked{% endif %}
+          <fieldset>
+            <legend>{{ legend_general }}</legend>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">{{ entry_status }}</label>
+              <div class="col-sm-10">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_status" value="0"/>
+                  <input type="checkbox"
+                         name="dashboard_ocn_server_info_status"
+                         value="1"
+                         id="input-status"
+                         class="form-check-input"
+                         {% if dashboard_ocn_server_info_status %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-width" class="col-sm-2 col-form-label">{{ entry_width }}</label>
+              <div class="col-sm-10">
+                <select name="dashboard_ocn_server_info_width" id="input-width" class="form-select">
+                  {% for column in columns %}
+                    <option
+                        value="{{ column }}"
+                        {% if column==dashboard_ocn_server_info_width %} selected {% endif %}
+                    >
+                      {{ column }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-sort-order" class="col-sm-2 col-form-label">{{ entry_sort_order }}</label>
+              <div class="col-sm-10">
+                <input type="text"
+                       name="dashboard_ocn_server_info_sort_order"
+                       value="{{ dashboard_ocn_server_info_sort_order }}"
+                       placeholder="{{ entry_sort_order }}"
+                       id="input-sort-order"
+                       class="form-control"
                 />
               </div>
             </div>
-          </div>
-          <div class="row mb-3">
-            <label for="input-width" class="col-sm-2 col-form-label">{{ entry_width }}</label>
-            <div class="col-sm-4">
-              <select name="dashboard_ocn_server_info_width" id="input-width" class="form-select">
-                {% for column in columns %}
-                  <option
-                      value="{{ column }}"
-                      {% if column==dashboard_ocn_server_info_width %} selected {% endif %}
-                  >
-                    {{ column }}
-                  </option>
-                {% endfor %}
-              </select>
-            </div>
-            <label for="input-sort-order" class="col-sm-2 col-form-label">{{ entry_sort_order }}</label>
-            <div class="col-sm-4">
-              <input type="text"
-                     name="dashboard_ocn_server_info_sort_order"
-                     value="{{ dashboard_ocn_server_info_sort_order }}"
-                     placeholder="{{ entry_sort_order }}"
-                     id="input-sort-order"
-                     class="form-control"
-              />
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label
-                class="col-sm-2 col-form-label"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-title="{{ placeholder_is_expanded }}"
-            >
-              {{ entry_is_expanded }}
-              <i class="fa-regular fa-circle-question"></i>
-            </label>
-            <div class="col-sm-4">
-              <div class="form-check form-switch form-switch-lg">
-                <input type="hidden" name="dashboard_ocn_server_info_is_expanded" value="0"/>
-                <input type="checkbox"
-                       name="dashboard_ocn_server_info_is_expanded"
-                       value="1"
-                       id="input-status"
-                       class="form-check-input"
-                       {% if dashboard_ocn_server_info_is_expanded %}checked{% endif %}
-                />
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_is_expanded }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_is_expanded }}"
+                ></i>
+              </label>
+              <div class="col-sm-10">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_is_expanded" value="0"/>
+                  <input type="checkbox"
+                         name="dashboard_ocn_server_info_is_expanded"
+                         value="1"
+                         id="input-is-expanded"
+                         class="form-check-input"
+                         {% if dashboard_ocn_server_info_is_expanded %}checked{% endif %}
+                  />
+                </div>
               </div>
             </div>
-            <label
-                class="col-sm-2 col-form-label"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-title="{{ placeholder_is_space_progress }}"
-            >
-              {{ entry_is_space_progress }}
-              <i class="fa-regular fa-circle-question"></i>
-            </label>
-            <div class="col-sm-4">
-              <div class="form-check form-switch form-switch-lg">
-                <input type="hidden" name="dashboard_ocn_server_info_is_space_progress" value="0"/>
-                <input type="checkbox"
-                       name="dashboard_ocn_server_info_is_space_progress"
-                       value="1"
-                       id="input-status"
-                       class="form-check-input"
-                       {% if dashboard_ocn_server_info_is_space_progress %}checked{% endif %}
-                />
+          </fieldset>
+          <fieldset>
+            <legend>{{ legend_free_space }}</legend>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_status }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_free_space_status }}"
+                ></i>
+              </label>
+              <div class="col-sm-10">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_free_space_status" value="0"/>
+                  <input type="checkbox"
+                         name="dashboard_ocn_server_info_free_space_status"
+                         value="1"
+                         id="input-is-free-space-status"
+                         class="form-check-input"
+                         {% if dashboard_ocn_server_info_free_space_status %}checked{% endif %}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_free_space_is_progressbar }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_free_space_is_progressbar }}"
+                ></i>
+              </label>
+              <div class="col-sm-10">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_free_space_is_progressbar" value="0"/>
+                  <input type="checkbox"
+                         name="dashboard_ocn_server_info_free_space_is_progressbar"
+                         value="1"
+                         id="input-is-free-space-progressbar"
+                         class="form-check-input"
+                         {% if dashboard_ocn_server_info_free_space_is_progressbar %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>{{ legend_filesystem }}</legend>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_filesystem_is_inodes }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_filesystem_is_inodes }}"
+                ></i>
+              </label>
+              <div class="col-sm-4">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_filesystem_is_inodes" value="0"/>
+                  <input
+                      type="checkbox"
+                      name="dashboard_ocn_server_info_filesystem_is_inodes"
+                      value="1"
+                      id="input-filesystem-is-inodes"
+                      class="form-check-input"
+                      {% if dashboard_ocn_server_info_filesystem_is_inodes %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_filesystem_is_total }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_filesystem_is_total }}"
+                ></i>
+              </label>
+              <div class="col-sm-4">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_filesystem_is_total" value="0"/>
+                  <input
+                      type="checkbox"
+                      name="dashboard_ocn_server_info_filesystem_is_total"
+                      value="1"
+                      id="input-filesystem-is-total"
+                      class="form-check-input"
+                      {% if dashboard_ocn_server_info_filesystem_is_total %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>{{ legend_size_opencart }}</legend>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_status }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_size_opencart_status }}"
+                ></i>
+              </label>
+              <div class="col-sm-10">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_size_opencart_status" value="0"/>
+                  <input type="checkbox"
+                         name="dashboard_ocn_server_info_size_opencart_status"
+                         value="1"
+                         id="input-size-opencart-status"
+                         class="form-check-input"
+                         {% if dashboard_ocn_server_info_size_opencart_status %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_size_opencart_is_storage }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_size_opencart_is_storage }}"
+                ></i>
+              </label>
+              <div class="col-sm-4">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_size_opencart_is_storage" value="0"/>
+                  <input
+                      type="checkbox"
+                      name="dashboard_ocn_server_info_size_opencart_is_storage"
+                      value="1"
+                      id="input-size-opencart-is-storage"
+                      class="form-check-input"
+                      {% if dashboard_ocn_server_info_size_opencart_is_storage %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_size_opencart_is_logs }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_size_opencart_is_logs }}"
+                ></i>
+              </label>
+              <div class="col-sm-4">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_size_opencart_is_logs" value="0"/>
+                  <input
+                      type="checkbox"
+                      name="dashboard_ocn_server_info_size_opencart_is_logs"
+                      value="1"
+                      id="input-size-opencart-is-logs"
+                      class="form-check-input"
+                      {% if dashboard_ocn_server_info_size_opencart_is_logs %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">
+                {{ entry_size_opencart_is_images }}
+                <i
+                    class="fa-regular fa-circle-question text-info"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="{{ placeholder_size_opencart_is_images }}"
+                ></i>
+              </label>
+              <div class="col-sm-4">
+                <div class="form-check form-switch form-switch-lg">
+                  <input type="hidden" name="dashboard_ocn_server_info_size_opencart_is_images" value="0"/>
+                  <input
+                      type="checkbox"
+                      name="dashboard_ocn_server_info_size_opencart_is_images"
+                      value="1"
+                      id="input-size-opencart-is-images"
+                      class="form-check-input"
+                      {% if dashboard_ocn_server_info_size_opencart_is_images %}checked{% endif %}
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </form>
       </div>
     </div>

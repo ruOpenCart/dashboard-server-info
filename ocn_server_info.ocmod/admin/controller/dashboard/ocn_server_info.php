@@ -15,14 +15,25 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 	
 	public function install(): void
 	{
-		$this->load->model('setting/setting');
+		// Data
 		$data = [
 			'dashboard_ocn_server_info_status' => 0,
 			'dashboard_ocn_server_info_width' => 12,
 			'dashboard_ocn_server_info_sort_order' => 0,
-			'dashboard_ocn_server_info_is_expanded' => 1,
-			'dashboard_ocn_server_info_is_space_progress' => 0,
+			'dashboard_ocn_server_info_is_expanded' => 0,
+			'dashboard_ocn_server_info_free_space_status' => 0,
+			'dashboard_ocn_server_info_free_space_is_progressbar' => 0,
+			'dashboard_ocn_server_info_filesystem_status' => 0,
+			'dashboard_ocn_server_info_filesystem_is_inodes' => 0,
+			'dashboard_ocn_server_info_filesystem_is_total' => 0,
+			'dashboard_ocn_server_info_size_opencart_status' => 0,
+			'dashboard_ocn_server_info_size_opencart_is_storage' => 0,
+			'dashboard_ocn_server_info_size_opencart_is_logs' => 0,
+			'dashboard_ocn_server_info_size_opencart_is_images' => 0,
 		];
+		
+		// Settings
+		$this->load->model('setting/setting');
 		$this->model_setting_setting->editSetting('dashboard_ocn_server_info', $data);
 	}
 	
@@ -32,10 +43,29 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 	
 	public function index(): void
 	{
+		// Language
 		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
-		
 		$this->document->setTitle($this->language->get('heading_title'));
 		
+		// Data
+		$data = [
+			'columns' => [12],
+			'dashboard_ocn_server_info_status' => $this->config->get('dashboard_ocn_server_info_status'),
+			'dashboard_ocn_server_info_width' => $this->config->get('dashboard_ocn_server_info_width'),
+			'dashboard_ocn_server_info_sort_order' => $this->config->get('dashboard_ocn_server_info_sort_order'),
+			'dashboard_ocn_server_info_is_expanded' => $this->config->get('dashboard_ocn_server_info_is_expanded'),
+			'dashboard_ocn_server_info_free_space_status' => $this->config->get('dashboard_ocn_server_info_free_space_status'),
+			'dashboard_ocn_server_info_free_space_is_progressbar' => $this->config->get('dashboard_ocn_server_info_free_space_is_progressbar'),
+			'dashboard_ocn_server_info_filesystem_status' => $this->config->get('dashboard_ocn_server_info_filesystem_status'),
+			'dashboard_ocn_server_info_filesystem_is_inodes' => $this->config->get('dashboard_ocn_server_info_filesystem_is_inodes'),
+			'dashboard_ocn_server_info_filesystem_is_total' => $this->config->get('dashboard_ocn_server_info_filesystem_is_total'),
+			'dashboard_ocn_server_info_size_opencart_status' => $this->config->get('dashboard_ocn_server_info_size_opencart_status'),
+			'dashboard_ocn_server_info_size_opencart_is_storage' => $this->config->get('dashboard_ocn_server_info_size_opencart_is_storage'),
+			'dashboard_ocn_server_info_size_opencart_is_logs' => $this->config->get('dashboard_ocn_server_info_size_opencart_is_logs'),
+			'dashboard_ocn_server_info_size_opencart_is_images' => $this->config->get('dashboard_ocn_server_info_size_opencart_is_images'),
+		];
+		
+		// Breadcrumbs
 		$data['breadcrumbs'] = [
 			[
 				'text' => $this->language->get('text_home'),
@@ -55,36 +85,29 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 		$data['save'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.save', 'user_token=' . $this->user_token);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->user_token . '&type=dashboard');
 		
-		// Info
-//		$data['data_author'] = $this->author;
-//		$data['data_version'] = $this->version;
-		$data['columns'] = [12];
-		
-		// Config
-		$data['dashboard_ocn_server_info_status'] = $this->config->get('dashboard_ocn_server_info_status');
-		$data['dashboard_ocn_server_info_width'] = $this->config->get('dashboard_ocn_server_info_width');
-		$data['dashboard_ocn_server_info_sort_order'] = $this->config->get('dashboard_ocn_server_info_sort_order');
-		$data['dashboard_ocn_server_info_is_expanded'] = $this->config->get('dashboard_ocn_server_info_is_expanded');
-		$data['dashboard_ocn_server_info_is_space_progress'] = $this->config->get('dashboard_ocn_server_info_is_space_progress');
-		
-		// Template
+		// Templates
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 		
+		// Response
 		$this->response->setOutput($this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_form', $data));
 	}
 	
 	public function save(): void
 	{
+		// Language
 		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
+		// Data
 		$json = [];
 		
+		// Permissions
 		if (!$this->user->hasPermission('modify', 'extension/ocn_server_info/dashboard/ocn_server_info')) {
 			$json['error'] = $this->language->get('error_permission');
 		}
 		
+		// Settings
 		if (!$json) {
 			$this->load->model('setting/setting');
 			
@@ -93,26 +116,26 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 			$json['success'] = $this->language->get('text_success');
 		}
 		
+		// Response
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 	
-	/**
-	 * @return string
-	 */
 	public function dashboard(): string
 	{
 		// Language
 		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
-		$data['user_token'] = $this->user_token;
-		
 		// Config
 		$data['dashboard_ocn_server_info_is_expanded'] = $this->config->get('dashboard_ocn_server_info_is_expanded');
-		$data['dashboard_ocn_server_info_is_space_progress'] = $this->config->get('dashboard_ocn_server_info_is_space_progress');
+		$data['free_space_status'] = $this->config->get('dashboard_ocn_server_info_free_space_status');
+		$data['size_opencart_status'] = $this->config->get('dashboard_ocn_server_info_size_opencart_status');
+		$data['dashboard_ocn_server_info_free_space_is_progressbar'] = $this->config->get('dashboard_ocn_server_info_free_space_is_progressbar');
 		
 		// Urls
 		$data['url_edit'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info', 'user_token=' . $this->user_token);
+		$data['url_size_opencart'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.opencart', 'user_token=' . $this->user_token);
+		$data['url_size_progressbar'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.progressbar', 'user_token=' . $this->user_token);
 		
 		// PHP
 		$data['phpinfo_url'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.info', 'user_token=' . $this->user_token);
@@ -151,62 +174,110 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 		$data['server_os'] = php_uname();
 		
 		// Parts
-		$data['modal_df'] = $this->modalDf();
-		$data['space'] = $this->space($this->config->get('dashboard_ocn_server_info_is_space_progress'));
+		$data['modal_system'] = $this->modalFileSystem();
+		$data['template_loading'] = $this->load->view(
+			'extension/ocn_server_info/dashboard/ocn_server_info_template_loading'
+		);;
 		$data['versions'] = $this->versions($data);
+		$data['size_opencart'] = $this->load->view(
+			'extension/ocn_server_info/dashboard/ocn_server_info_size_opencart',
+			$data
+		);
+		$data['size_progressbar'] = $this->load->view(
+			'extension/ocn_server_info/dashboard/ocn_server_info_size_progressbar',
+			$data
+		);
 		
-		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_info', $data);
+		// View
+		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_dashboard', $data);
 	}
 	
-	public function size()
+	public function info()
 	{
+		// Html
+		return phpinfo();
+	}
+	
+	public function system()
+	{
+		// Helpers
+		$this->load->helper('extension/ocn_server_info/size');
+		
+		// Command
+		$command = 'df -h';
+		if ($this->config->get('dashboard_ocn_server_info_filesystem_is_inodes')) {
+			$command .= 'i';
+		}
+		if ($this->config->get('dashboard_ocn_server_info_filesystem_is_total')) {
+			$command .= ' --total';
+		}
+		
+		// Response
 		$this->response->setOutput(
 			$this->load->view(
-				'extension/ocn_server_info/dashboard/ocn_server_info_df',
+				'extension/ocn_server_info/dashboard/ocn_server_info_size_system',
 				[
-					'df' => shell_exec('df -h'),
+					'url_size_system' => $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.system', 'user_token=' . $this->user_token),
+					'df' => shell_exec($command),
 				]
 			)
 		);
 	}
 	
-	public function info()
+	public function opencart()
 	{
-		return phpinfo();
-	}
-	
-	private function versions(array $data)
-	{
-		return $this->load->view(
-			'extension/ocn_server_info/dashboard/ocn_server_info_versions',
-			$data
+		// Language
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
+		
+		// Helpers
+		$this->load->helper('extension/ocn_server_info/size');
+		
+		// Data
+		$data = [
+			'url_size_opencart' => $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.opencart', 'user_token=' . $this->user_token),
+			'size_opencart' => du_dir(DIR_OPENCART),
+		];
+		if ($this->config->get('dashboard_ocn_server_info_size_opencart_is_storage')) {
+			$data['is_storage'] = $this->config->get('dashboard_ocn_server_info_size_opencart_is_storage');
+			$data['size_storage'] = du_dir(DIR_STORAGE);
+		}
+		if ($this->config->get('dashboard_ocn_server_info_size_opencart_is_logs')) {
+			$data['is_logs'] = $this->config->get('dashboard_ocn_server_info_size_opencart_is_logs');
+			$data['size_logs'] = du_dir(DIR_LOGS);
+		}
+		if ($this->config->get('dashboard_ocn_server_info_size_opencart_is_images')) {
+			$data['is_images'] = $this->config->get('dashboard_ocn_server_info_size_opencart_is_images');
+			$data['size_image'] = du_dir(DIR_IMAGE);
+			$data['size_image_cache'] = du_dir(DIR_IMAGE . 'cache/');
+		}
+		
+		// Response
+		$this->response->setOutput(
+			$this->load->view(
+				'extension/ocn_server_info/dashboard/ocn_server_info_size_opencart',
+				$data
+			)
 		);
 	}
 	
-	private function modalDf()
+	public function progressbar()
 	{
 		// Language
-		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info_modal_df');
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
 		
-		// Token
-		$data['user_token'] = $this->user_token;
+		// Helpers
+		$this->load->helper('extension/ocn_server_info/size');
 		
 		// Urls
-		$data['url_size'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.size', 'user_token=' . $this->user_token);
+		$data['url_size_progressbar'] = $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.progressbar', 'user_token=' . $this->user_token);
 		
-		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_modal_df', $data);
-	}
-	
-	private function space(bool $isProgress)
-	{
-		// Language
-		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info_space_progress');
-		
-		// Data
+		// Utils
 		$disk_free_space = disk_free_space(".");
 		$disk_total_space = disk_total_space(".");
-		$data['disk_free_space'] = $this->bytesToStr($disk_free_space);
-		$data['disk_total_space'] = $this->bytesToStr($disk_total_space);
+		
+		// Data
+		$data['disk_free_space'] = bytes_to_str($disk_free_space);
+		$data['disk_total_space'] = bytes_to_str($disk_total_space);
 		$data['disk_free_space_percent'] = round($disk_free_space * 100 / $disk_total_space, 2);
 		$data['disk_total_space_percent'] = round(100 - $data['disk_free_space_percent'], 2);
 		$data['disk_free_space_color'] = $data['disk_free_space_percent'] > 50
@@ -215,17 +286,39 @@ class OcnServerInfo extends \Opencart\System\Engine\Controller
 				? 'bg-warning'
 				: 'bg-danger'
 			);
-		$data['disk_space'] = sprintf($this->language->get('text_space'), $data['disk_free_space'], $data['disk_total_space']);
-		$data['is_progress'] = $isProgress;
+		$data['disk_space'] = sprintf($this->language->get('text_free_space'), $data['disk_free_space'], $data['disk_total_space']);
+		$data['is_progress'] = $this->config->get('dashboard_ocn_server_info_free_space_is_progressbar');
 		
-		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_space', $data);
+		// Response
+		$this->response->setOutput(
+			$this->load->view(
+				'extension/ocn_server_info/dashboard/ocn_server_info_size_progressbar',
+				$data
+			)
+		);
 	}
 	
-	private function bytesToStr(int $bytes)
+	private function versions(array $data)
 	{
-		$prefix = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
-		$base = 1024;
-		$class = min((int)log($bytes, $base), count($prefix) - 1);
-		return sprintf('%1.2f', $bytes / pow($base, $class)) . $prefix[$class];
+		// View
+		return $this->load->view(
+			'extension/ocn_server_info/dashboard/ocn_server_info_versions',
+			$data
+		);
+	}
+	
+	private function modalFileSystem()
+	{
+		// Language
+		$this->load->language('extension/ocn_server_info/dashboard/ocn_server_info');
+		
+		// Data
+		$data = [
+			'user_token' => $this->user_token,
+			'url_size_system' => $this->url->link('extension/ocn_server_info/dashboard/ocn_server_info.system', 'user_token=' . $this->user_token),
+		];
+		
+		// View
+		return $this->load->view('extension/ocn_server_info/dashboard/ocn_server_info_modal_system', $data);
 	}
 }

@@ -1,0 +1,17 @@
+<span id="sizeOpencart" data-url="{{ url_size_opencart }}">
+  {% if size_opencart %}
+    {{ text_size_opencart }}: <span class="fw-bold">{{ size_opencart }}</span>;
+  {% if is_storage %}
+    {{ text_size_opencart_storage }}: <span class="fw-bold">{{ size_storage }}</span>;
+  {% endif %}
+    {% if is_logs %}
+    {{ text_size_opencart_logs }}: <span class="fw-bold">{{ size_logs }}</span>;
+  {% endif %}
+  {% if is_images %}
+    {{ text_size_opencart_image }}: <span class="fw-bold">{{ size_image }}</span>
+    (<span class="fw-bold">{{ size_image_cache }}</span>);
+  {% endif %}
+  {% else %}
+    <span class="me-md-4">{{ text_loading }}</span>
+  {% endif %}
+</span>
